@@ -1,33 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [area,setArea] = useState([]);
+  async function change(id) {
+      const responce = await fetch(`https://www.jma.go.jp/bosai/forecast/data/forecast/${id}.json`);
+      const current = await responce.json();
+      console.log(current[0].timeSeries[0].areas);
+      setArea(current[0].timeSeries[0].areas);
+  }
+  
   return (
-    <div className="App">
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+          <h1>Weather</h1>
+          <select onChange={(e) => change(e.target.value)}>
+              <option value="130000">東京</option>
+              <option value="270000">大阪</option>
+              <option value="016000">札幌</option>
+          </select>
+          {
+              area.map((items,index) => (
+                  <div key={index}>
+                      <h2>{items.area.name}</h2>
+                      <p>今日の天気 : {items.weathers[0]}</p>
+                      <img src={`https://www.jma.go.jp/bosai/forecast/img/${items.weatherCodes[0]}.svg`} alt="" />
+                  </div>
+              ))
+          }
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
   )
 }
 
