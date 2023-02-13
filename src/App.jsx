@@ -11,9 +11,9 @@ function App() {
   }
   
   return (
-      <div>
-          <h1>Weather</h1>
-          <select onChange={(e) => change(e.target.value)}>
+      <div className='content'>
+          <h1 className='title'>Weather</h1>
+          <select className='btn' onChange={(e) => change(e.target.value)}>
               <option value="130000">東京</option>
               <option value="270000">大阪</option>
               <option value="016000">札幌</option>
@@ -22,8 +22,8 @@ function App() {
               area.map((items,index) => (
                   <div key={index}>
                       <h2>{items.area.name}</h2>
-                      <p>今日の天気 : {items.weathers[0]}</p>
-                      <img src={`https://www.jma.go.jp/bosai/forecast/img/${items.weatherCodes[0]}.svg`} alt="" />
+                      <p>明日の天気 : {items.weathers[1]}</p>
+                      <img src={`https://www.jma.go.jp/bosai/forecast/img/${items.weatherCodes[1]}.svg`} alt="" />
                   </div>
               ))
           }
