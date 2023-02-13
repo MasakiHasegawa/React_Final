@@ -20,7 +20,7 @@ function App() {
           </select>
           {
               area.map((items,index) => (
-                  <div key={index}>
+                  <div key={index} className='contentText'>
                       <h2>{items.area.name}</h2>
                       <p>明日の天気 : {items.weathers[1]}</p>
                       <img src={`https://www.jma.go.jp/bosai/forecast/img/${items.weatherCodes[1]}.svg`} alt="" />
